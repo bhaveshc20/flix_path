@@ -58,7 +58,7 @@
 		CE8C183B20073EF3002C8FC5 /* flix_pathUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = flix_pathUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8C183F20073EF3002C8FC5 /* flix_pathUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = flix_pathUITests.swift; sourceTree = "<group>"; };
 		CE8C184120073EF3002C8FC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE8C184D200750CC002C8FC5 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
+		CE8C184D200750CC002C8FC5 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		DA9469C21C0E96BB4488E51B /* Pods-flix_path.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flix_path.release.xcconfig"; path = "Pods/Target Support Files/Pods-flix_path/Pods-flix_path.release.xcconfig"; sourceTree = "<group>"; };
 		DBC954B558081EE90B4FA77A /* Pods_flix_path.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flix_path.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
