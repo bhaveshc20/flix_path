@@ -1,0 +1,6 @@
+framework module Pods_flix_pathUITests {
+  umbrella header "Pods-flix_pathUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
