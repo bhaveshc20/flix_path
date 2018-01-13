@@ -9,13 +9,15 @@
 import UIKit
 import AlamofireImage
 
-class NowPlayingViewController: UIViewController, UITableViewDataSource {
+class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [[String: Any]] = []
+    var movies: [NSDictionary]?
+    var filteredMovies: [NSDictionary]?
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -27,6 +29,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         tableView.insertSubview(refreshControl, at: 0)
         
         tableView.dataSource = self
+        self.searchBar.delegate = self
+        filteredMovies = movies
         
         fetchMovies()
     
@@ -48,9 +52,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             if let error = error {
                 print(error.localizedDescription)
             } else if let data = data {
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let movies = dataDictionary["results"] as! [[String: Any]]
-                self.movies = movies
+                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+//                let movies = dataDictionary["results"] as! [[String: Any]]
+                self.movies = dataDictionary["results"] as! [NSDictionary]
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
@@ -60,12 +64,19 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        if self.searchBar.text!.isEmpty{
+            return self.movies?.count ?? 0
+        }else{
+            return self.filteredMovies?.count ?? 0
+        }
+        
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
+//        cell.textLabel?.text = filteredMovies?[indexPath.row] as? String!
         
-        let movie = movies[indexPath.row]
+        let movie =  self.searchBar.text!.isEmpty ?  movies![indexPath.row] : filteredMovies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         cell.titleLabel.text = title
@@ -78,6 +89,22 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         cell.posterImageView.af_setImage(withURL: posterURL)
         activityIndicator.stopAnimating()
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredMovies = searchText.isEmpty ? movies : movies?.filter({ (movie) -> Bool in
+            (movie.value(forKey: "title") as! String).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        })
+        self.tableView.reloadData()
+        
+    }
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        self.searchBar.showsCancelButton = true
+//    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
