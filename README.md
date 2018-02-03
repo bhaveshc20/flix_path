@@ -2,7 +2,7 @@
 
 **flix_path** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: **10** hours spent in total
 
 ## User Stories
 
@@ -16,7 +16,7 @@ The following **required** user stories are complete:
 The following **optional** user stories are implemented:
 
 - [ ] User sees an alert when there's a networking error (+1pt)
-- [ ] User can search for a movie (+3pt)
+- [X] User can search for a movie (+3pt)
 - [ ] While poster is being fetched, user see's a placeholder image (+1pt)
 - [ ] User sees image transition for images coming from network, not when it is loaded from cache (+1pt)
 - [ ] Customize the selection effect of the cell (+1pt)
@@ -38,6 +38,10 @@ Here's a walkthrough of implemented user stories:
 <img src='https://i.imgur.com/GX0SiVP.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/Z56qHX3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 <img src='https://i.imgur.com/KRjKq8G.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Here's a walkthrough of implemented optional stories:
+
+<img src='https://i.imgur.com/yThXyUT.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
