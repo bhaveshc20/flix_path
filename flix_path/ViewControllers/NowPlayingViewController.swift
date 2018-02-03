@@ -33,7 +33,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         filteredMovies = movies
         
         fetchMovies()
-    
+        
     }
     
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
@@ -53,7 +53,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 print(error.localizedDescription)
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
-//                let movies = dataDictionary["results"] as! [[String: Any]]
+                //                let movies = dataDictionary["results"] as! [[String: Any]]
                 self.movies = dataDictionary["results"] as! [NSDictionary]
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
@@ -74,7 +74,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-//        cell.textLabel?.text = filteredMovies?[indexPath.row] as? String!
+        //        cell.textLabel?.text = filteredMovies?[indexPath.row] as? String!
         
         let movie =  self.searchBar.text!.isEmpty ?  movies![indexPath.row] : filteredMovies![indexPath.row]
         let title = movie["title"] as! String
@@ -91,6 +91,19 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let movie = movies![indexPath.row]
+            let detailViewContoller = segue.destination as! DetailViewController
+            detailViewContoller.movie = movie as! [String : Any]
+            
+            
+        }
+        
+        
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filteredMovies = searchText.isEmpty ? movies : movies?.filter({ (movie) -> Bool in
             (movie.value(forKey: "title") as! String).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
@@ -98,21 +111,22 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         self.tableView.reloadData()
         
     }
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        self.searchBar.showsCancelButton = true
-//    }
+    //    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    //        self.searchBar.showsCancelButton = true
+    //    }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-  
-
+    
+    
+    
 }
