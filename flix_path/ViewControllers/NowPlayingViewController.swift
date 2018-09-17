@@ -30,6 +30,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         
         tableView.dataSource = self
         self.searchBar.delegate = self
+        
         filteredMovies = movies
         
         fetchMovies()
